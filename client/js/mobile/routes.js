@@ -73,20 +73,12 @@ export const routes = {
 
             const file = UploadImgForm.imageUploadInput.files[0]
             if (!file){
-                // console.log(UploadImgForm.inputField.value)
-                // d.querySelector('.bubble-box-form').innerHTML = `send ${UploadImgForm.inputField.value} to server`
-                let answer = window.confirm("nothing to send");
-                if (answer) {
-                } else {
-                }
+                window.confirm("nothing to send");
                 return
             }
             if (file) {
                 UploadImgForm.spinnerToggle('on')
-
-                //UploadImgForm.inputField.value = ``
                 UploadImgForm.adjustInitTextarea()
-
                 const customSlider = document.querySelector('custom-slider[selected="1"]');
                 const segment = customSlider.contentinit
 
@@ -96,164 +88,75 @@ export const routes = {
 
                 const data = apiResponse.data.response
                 console.log("data", data)
-                //d.querySelector('.img-box-render').innerHTML = ''
                 d.querySelector('.bubble-box-form').innerHTML = ''
-
-                // const { 
-                //     summary, 
-                //     recognized_risk, 
-                //     potential_risk, 
-                //     finding,
-                //     frequency,
-                //     impact,
-                //     feasibility,
-                //     risk_assessment
-                // } = apiResponse
-
-
 
                 let addtltag
 
-                if (context){
-                    addtltag = context.split(/[ ,;]+/)
-                }
+                if (context) addtltag = context.split(/[ ,;]+/)
 
                 Object.keys(data).map(a => {
                     const content = data[a]
 
+            switch (true) {
+                case a === 'Description':
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'summary',
+                            logo: 'summary',
+                            addtltag,
+                            content
+                        }))
+                    break;
 
-switch (true) {
-    case a === 'Description':
-            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                header: 'summary',
-                logo: 'summary',
-                addtltag,
-                content
-            }))
-        break;
+                case 
+                a === 'Compliance Risks' || 
+                a === 'Pollution and Emissions' ||
+                a === 'Resource Depletion':
 
-    case 
-    a === 'Compliance Risks' || 
-    a === 'Pollution and Emissions' ||
-    a === 'Resource Depletion':
+                    d.querySelector('.bubble-box-form').appendChild(new HeadlineBox(a))
+                    
+                    if (content['Recognized Risk'] || content['Recognized Risk'] !== '') {
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Recognized Risk',
+                            logo: 'r_risks',
+                            addtltag,
+                            content: content['Recognized Risk']
+                        }))
+                    }
 
-        d.querySelector('.bubble-box-form').appendChild(new HeadlineBox(a))
-        
-        if (content['Recognized Risk'] || content['Recognized Risk'] !== '') {
-            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                header: 'Recognized Risk',
-                logo: 'r_risks',
-                addtltag,
-                content: content['Recognized Risk']
-            }))
-        }
+                    if (content['Potential Risk']) {
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Potential Risk',
+                            logo: 'p_risks',
+                            addtltag,
+                            content: content['Potential Risk']
+                        }))
+                    }
 
-        if (content['Potential Risk']) {
-            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                header: 'Potential Risk',
-                logo: 'p_risks',
-                addtltag,
-                content: content['Potential Risk']
-            }))
-        }
+                    if (content['Finding']) {
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Finding',
+                            logo: 'findings',
+                            addtltag,
+                            content: content['Finding']
+                        }))
+                    }
 
-        if (content['Finding']) {
-            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                header: 'Finding',
-                logo: 'findings',
-                addtltag,
-                content: content['Finding']
-            }))
-        }
+                    if (content['Action']){
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Actions',
+                            logo: 'findings',
+                            addtltag,
+                            content: content['Action']
+                        }))
+                    }
 
-        if (content['Action']){
-            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                header: 'Actions',
-                logo: 'findings',
-                addtltag,
-                content: content['Action']
-            }))
-        }
+                break;
 
-    break;
-
-    default:
-        break;
-}
-
-
+                default:
+                    break;
+            }
 })
-
-
-                
-
-
-
-                // if (summary){
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'summary',
-                //         logo: 'summary',
-                //         content: summary
-                //     }))
-                // }
-
-                // if (recognized_risk){
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Recognized Risks',
-                //         logo: 'risks',
-                //         content: recognized_risk
-                //     }))
-                // }
-
-                // if (potential_risk){
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Potential Risks',
-                //         logo: 'p_risks',
-                //         content: potential_risk
-                //     }))
-                // }
-
-                // if (finding){
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Finding',
-                //         logo: 'findings',
-                //         content: finding
-                //     }))
-                // }
-
-                // if (frequency) {
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Frequency',
-                //         logo: 'findings',
-                //         content: frequency
-                //     }))
-                // }
-
-                // if (impact) {
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Impact',
-                //         logo: 'findings',
-                //         content: impact
-                //     }))
-                // }
-
-                // if (feasibility) {
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Feasibility',
-                //         logo: 'findings',
-                //         content: feasibility
-                //     }))
-                // }
-
-                // if (risk_assessment) {
-                //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                //         header: 'Risk Assessment Score',
-                //         logo: 'findings',
-                //         content: risk_assessment
-                //     }))
-                // }
-
-                UploadImgForm.spinnerToggle('off')
+            UploadImgForm.spinnerToggle('off')
             }
         }, false);
 
