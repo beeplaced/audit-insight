@@ -1,0 +1,21 @@
+{
+  "name": "Audit Image Recognition",
+  "short_name": "AIR",
+  "description": "Description of your app",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#181716",
+  "theme_color": "#181716",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
