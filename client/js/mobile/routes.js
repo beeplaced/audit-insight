@@ -1,5 +1,5 @@
 import { SVG } from './svg.js'; const _svg = new SVG();
-import { BubbleBox, ShowImage, UploadImg, RenderSelection, HeadlineBox } from '../components/_Mobile.js';
+import { BubbleBox, ShowImage, UploadImg, RenderSelection, HeadlineBox, TextBox } from '../components/_Mobile.js';
 import { SLIDER } from '../components/_Radio.js';
 import { API } from './api.js';
 const d = document
@@ -13,7 +13,7 @@ export const routes = {
 
         const RenderSelectionForm = new RenderSelection()
 
-        const slider_1 = new SLIDER({ contentinit: 'audits_findings', selected: 1 })
+        const slider_1 = new SLIDER({ contentinit: 'audit_risk', selected: 1 })
         const slider_2 = new SLIDER({ contentinit: 'risk_score', selected: 0 })
 
         RenderSelectionForm.checkboxes.appendChild(slider_1)
@@ -77,11 +77,12 @@ export const routes = {
                 return
             }
             if (file) {
+                const startTime = performance.now(); // Get start time
+
                 UploadImgForm.spinnerToggle('on')
                 UploadImgForm.adjustInitTextarea()
                 const customSlider = document.querySelector('custom-slider[selected="1"]');
                 const segment = customSlider.contentinit
-
                 const _api = new API({ context, segment });
                 const apiResponse = await _api.CALL(file)
                 console.log("apiResponse", apiResponse)
@@ -98,7 +99,9 @@ export const routes = {
                     const content = data[a]
 
             switch (true) {
-                case a === 'Description':
+                case 
+                a === 'Description' ||
+                a === 'Scenario Description' :
                         d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
                             header: 'summary',
                             logo: 'summary',
@@ -153,12 +156,34 @@ export const routes = {
                 break;
 
                 default:
+                    d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                        header: a,
+                        logo: 'p_risks',
+                        type: 'scores',
+                        addtltag,
+                        content
+                    })) 
                     break;
             }
 })
             UploadImgForm.spinnerToggle('off')
+
+                const endTime = performance.now(); // Get end time
+
+                const executionTimeInSeconds = (endTime - startTime) / 1000; // Calculate execution time in seconds
+
+                const roundedExecutionTime = executionTimeInSeconds.toFixed(2);
+
+                d.querySelector('.bubble-box-form').appendChild(new TextBox(`execution time: ${roundedExecutionTime} seconds`))
             }
         }, false);
 
         }
 }
+
+
+//As an internal auditor for ISO 27001, you are tasked with assessing the following scenario and providing a risk assessment score based on the Fine - Kinney\ncriteria:Scenario Description: { CONTEXT } \nProvide a concise, formal, and audit-like summary of the scenario. Rate the likelihood on a scale of low, medium, or high\nRisk Exposure: Assess the likelihood of the risk scenario occurring within the organization, considering historical data, industry trends, and internal factors.Rate the likelihood on a scale of low, medium, or high.\nLikelihood: Evaluate the feasibility of the risk scenario based on ease of exploitation or realization by potential threat actors.Consider factors like existing vulnerabilities, attacker capabilities, and effectiveness of current controls.Rate on a scale of low, medium, or high.\nConsequence: Estimate the potential financial impact of the risk scenario on the organization, considering both direct and indirect costs like data breaches, system downtime, regulatory fines, legal fees, and reputational damage.Rate on a scale of low, medium, or high.\nOverall Risk Assessment: Combine the individual ratings for Risk Exposure, Likelihood, and Consequence to calculate an overall risk score.Provide the overall risk score as only one word.\nProvide the result back as JSON.
+
+//"As an internal auditor for ISO 27001, you are tasked with assessing the following scenario and providing a risk assessment score based on the criteria of fine-kinney:\n You will be provided with an image and the context of the items that are depicted in the image.\n Scenario Description: { CONTEXT } \n Give a concise, formal, and audit-like summary of the scenario\n Provide Risk Exposure, Likelihood and Consequence on a scale of low, medium, or high.\n Overall Risk Assessment being Risk Exposure x Likelihood x Consequence = Overall Risk Score as only one word\n Risk Exposure:\n Rate the likelihood of the risk scenario occurring within the organization.\n Consider historical data, industry trends, and internal factors that may influence the probability of occurrence.\n Assign a score to reflect the likelihood of the risk scenario on a scale of low, medium, or high.\n Likelihood:\n Evaluate the feasibility of the risk scenario based on the ease of exploitation or realization by potential threat actors.\n Consider factors such as the existence of vulnerabilities, attacker capabilities, and effectiveness of existing controls.\n Assign a score to reflect the feasibility of the risk scenario on a scale of low, medium, or high.\n Consequence: \n Estimate the potential financial impact of the risk scenario on the organization.\n Consider direct and indirect costs associated with data breaches, system downtime, regulatory fines, legal fees, and reputational damage.\n Assign a score to reflect the financial impact of the risk scenario on a scale of low, medium, or high.\n Overall Risk Assessment: \n Combine the individual ratings for Risk Exposure x Likelihood x Consequence to calculate an overall risk score.\n Consider the relative importance of each criterion and adjust the weighting accordingly.\n Give a concise, formal, and audit-like description of the assessed risk scenario.\nGive the result back as json."
+
+//As an internal auditor for ISO 27001, you are tasked with assessing the following scenario and providing a risk assessment score based on the Fine-Kinney criteria:\nScenario Description: { CONTEXT } \nProvide a concise, formal, and audit-like summary of the scenario.Provide Risk Exposure, Likelihood and Consequence each on a scale of low, medium, or high.\nRisk Exposure: Assess the likelihood of the risk scenario occurring within the organization, considering historical data, industry trends, and internal factors.\nLikelihood: Evaluate the feasibility of the risk scenario based on ease of exploitation or realization by potential threat actors.Consider factors like existing vulnerabilities, attacker capabilities, and effectiveness of current controls.\nConsequence: Estimate the potential financial impact of the risk scenario on the organization, considering both direct and indirect costs like data breaches, system downtime, regulatory fines, legal fees, and reputational damage.\nOverall Risk Assessment: Combine the individual ratings for Risk Exposure, Likelihood, and Consequence to calculate an overall risk score.Provide the overall risk score as only one word.Provide the result back as JSON\n

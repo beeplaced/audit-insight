@@ -6,7 +6,7 @@ export class API {
 
         const { context, segment } = params
         this.context = context
-        this.header = { context, segment }
+        this.segment = segment.toUpperCase()
     }
 
 CALL = async (file) => {
@@ -15,6 +15,7 @@ CALL = async (file) => {
         
     const formData = new FormData();
     formData.append('context', this.context);
+    formData.append('segment', this.segment);
     formData.append('file', file);
 
     const response = await axios.post(imageURL, formData, {
@@ -22,8 +23,6 @@ CALL = async (file) => {
             'Content-Type': 'multipart/form-data'
         },
         validateStatus: function (status) {
-            // This will accept status code 200 - 299 as successful,
-            // as well as 400 specifically.
             return true;
         }
     }
@@ -32,9 +31,7 @@ CALL = async (file) => {
 console.log(response)
 return response
 
-
-
-    } catch (error) {
+} catch (error) {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);

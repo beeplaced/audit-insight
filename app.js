@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = 8080;
 const packageJson = require('./package.json');
 const version = packageJson.version
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+console.log(__dirname)
 app.use('/client', express.static(path.join(__dirname, 'client')));
 app.use('/custom-elements', express.static(__dirname + '/node_modules/custom-elements/components.js'));
 
@@ -69,8 +70,8 @@ app.get('/:route?', (req, res) => {
     res.render('404');
 });
 
-const hostname = "192.168.0.104"
+const hostname = "0.0.0.0"
 
 app.listen(port, () => {
-    console.log(`open ${hostname}:3000/`);
+    console.log(`open ${hostname}:${port}`);
 });

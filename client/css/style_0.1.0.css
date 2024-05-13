@@ -1,12 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html{
-      font-family: SoDoSans, sans-serif;
+    font-family: SoDoSans, sans-serif;
     font-feature-settings: "calt";
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -87,6 +80,15 @@ nav {
     font-weight: bold;
     color: #595959;
     font-size: 130%;
+    white-space: break-spaces;
+    line-height: 1.4em;
+  }
+
+    .text-box{
+    margin: 5px 20px;
+    width: fit-content;
+    color: #595959;
+    font-size: 100%;
     white-space: break-spaces;
     line-height: 1.4em;
   }

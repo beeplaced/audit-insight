@@ -6,7 +6,7 @@ export class Content {
     getSlider = (ident) => {
 
         const params = {
-            audits_findings: () => {
+            audit_risk: () => {
                 return { on: 'check Audits and generate Findings', off: 'check Audits and generate Findings' }
             },
             risk_score: () => {
