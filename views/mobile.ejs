@@ -18,13 +18,17 @@
 <link rel="shortcut icon" href='client/shortcut.svg' type="image/svg" />
 <script type="module" src="client/js/mobile/app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Include exif-js library (from CDN)
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script> -->
+
 <title>Audit Insight</title>
   </head>
   <body>
     <section actionbar></section>
     <section class="menu">
       <div class="menu-inner">
-        <div class="menu-inner-search">
+            <form class="render-selection"></form>
+        <!-- <div class="menu-inner-search">
           <div class="menu-left-back"></div>
           <input type="text" class="main-search" placeholder="search..." autocomplete="off"></div>
         <div class="menu-inner-nav"></div>
@@ -33,7 +37,7 @@
  <path d="m0.63976 0h-0.043374c-0.12268 0-0.184 1.0371e-5 -0.22211 0.039551-0.038112 0.039541-0.038112 0.10318-0.038112 0.23046v0.36c0 0.12728 0 0.19092 0.038112 0.23046 0.038104 0.039532 0.0994 0.039532 0.22202 0.039532h0.043469c0.12268 0 0.18402 0 0.22213-0.039542 0.038113-0.039542 0.038113-0.10318 0.038113-0.23046v-0.36c0-0.12728 0-0.19092-0.038113-0.23046-0.038113-0.03954-0.099452-0.03954-0.22213-0.03954z" fill="#9e9ddb"></path>
  <path d="m0.62892 0.45c0-0.018639-0.014565-0.03375-0.03253-0.03375h-0.47592l0.085041-0.075626c0.013641-0.01213 0.015221-0.033437 0.003529-0.047589-0.011692-0.014152-0.032229-0.015791-0.045869-0.003661l-0.15181 0.135c-0.0072103 0.0064123-0.01136 0.015772-0.01136 0.025627 0 0.00985 0.0041494 0.01921 0.01136 0.025623l0.15181 0.135c0.013641 0.012132 0.034177 0.010494 0.045869-0.003658 0.011692-0.014152 0.010113-0.03546-0.003529-0.047592l-0.08504-0.075623h0.47592c0.017965 0 0.03253-0.015111 0.03253-0.03375z" clip-rule="evenodd" fill="lavenderblush"></path>
 </svg></div>
-          <div class="menu-inner-footer-txt">Logout</div>
+          <div class="menu-inner-footer-txt">Logout</div> -->
         </div>
     </section>
     <main>
@@ -45,7 +49,7 @@
 <section class="content">
   <div class="content-inner">
     <form class="img-box-upload"></form>
-    <form class="render-selection"></form>
+    <form class="render-info"></form>
     <form class="img-box-render"></form>
     <form class="bubble-box-form"></form>
 

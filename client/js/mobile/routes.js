@@ -1,52 +1,43 @@
 import { SVG } from './svg.js'; const _svg = new SVG();
-import { BubbleBox, ShowImage, UploadImg, RenderSelection, HeadlineBox, TextBox } from '../components/_Mobile.js';
-import { SLIDER } from '../components/_Radio.js';
+import { TextBox, BubbleBox, ShowImage, UploadImg, HeadlineBox } from '../components/_Mobile.js';
+
 import { API } from './api.js';
+import { OUTPUT } from './output.js';
+import { MENU } from './menu.js';
 const d = document
 
 export const routes = {
 
     start: async () => {
 
+        // const data = {
+        //     "Description": "The image depicts a construction or industrial site with piles of earth, a truck, and some machinery. The area appears to be in a rural or forested location.",
+        //     "Compliance Risks": {
+        //         "Recognized Risk": "",
+        //         "Potential Risk": "Failure to comply with environmental regulations regarding land use, waste management, and emissions control.",
+        //         "Finding": "The site appears to lack visible measures for managing waste and emissions, which may lead to non-compliance with environmental regulations.",
+        //         "Action": "Conduct a thorough review of applicable environmental regulations and ensure that all necessary permits and compliance measures are in place. Implement waste management and emissions control protocols."
+        //     },
+        //     "Resource Depletion": {
+        //         "Recognized Risk": "",
+        //         "Potential Risk": "Excessive use of natural resources such as water and raw materials for construction.",
+        //         "Finding": "The site shows signs of significant earth movement and potential resource use without visible conservation measures."
+        //     },
+        //     "Pollution and Emissions": {
+        //         "Recognized Risk": "",
+        //         "Potential Risk": "Soil and water contamination from construction activities and machinery emissions.",
+        //         "Finding": "The site has exposed soil and machinery, which could lead to pollution if not properly managed."
+        //     }
+        // }
+
+
         const UploadImgForm = new UploadImg()
         d.querySelector('.img-box-upload').appendChild(UploadImgForm)
 
-        const RenderSelectionForm = new RenderSelection()
-
-        const slider_1 = new SLIDER({ contentinit: 'audit_risk', selected: 1 })
-        const slider_2 = new SLIDER({ contentinit: 'risk_score', selected: 0 })
-
-        RenderSelectionForm.checkboxes.appendChild(slider_1)
-        RenderSelectionForm.checkboxes.appendChild(slider_2)
-
-        slider_1.addtl = () => {
-            const attr = slider_1.getAttribute('selected')
-            switch (true) {
-                case attr === "1":
-                    slider_2.deactivate();
-                    break;
-                default:
-                    slider_2.activate();
-                    break;
-            }
-        }
-
-        slider_2.addtl = () => {
-            const attr = slider_2.getAttribute('selected')
-            switch (true) {
-                case attr === "1":
-                    slider_1.deactivate();
-                    break;
-                default:
-                    slider_1.activate();
-                    break;
-            }
-        }
-
-        d.querySelector('.render-selection').appendChild(RenderSelectionForm)
+        new MENU()
 
         d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-            header: 'Image-Text recognition',
+            header: 'Instruction',
             logo: 'info_circle',
             content: `<p>You can <span class="txt-hgh">asses a scenario</span> by choosing one of the following options</p>
             <p><span class="txt-hgh">Upload Image</span>: Click the &quot;clamp&quot; button to select an image from your device or shoot a new one</p>
@@ -58,10 +49,8 @@ export const routes = {
         const sendBtn = d.querySelector('.upload-box-btn')
 
         UploadImgForm.imageUploadInput.addEventListener('change', async (e) => {
-            const file = e.target.files[0]; // Get the selected file
-            UploadImgForm.imgSelected.style.display = 'block'
-            UploadImgForm.imgSelected.innerHTML = `${file.name}`
-            UploadImgForm.inputField.placeholder = 'Context (optional)'
+            const file = e.target.files[0];
+            UploadImgForm.inputField.placeholder = 'add optional context'
             UploadImgForm.handleInput()
             d.querySelector('.img-box-render').innerHTML = ''
             d.querySelector('.img-box-render').appendChild(new ShowImage({ file }))
@@ -69,114 +58,72 @@ export const routes = {
 
         sendBtn.addEventListener('click', async (e) => {
             const txtEntry = d.querySelector('.upload-box-input')
-            const context = txtEntry.value || 'industrial setting'
+            const context = txtEntry.value
+            const customSlider = d.querySelector('custom-slider[selected="1"]');
+            const segment = customSlider.contentinit
+
+            //d.querySelector('.render-info').appendChild(new HeadlineBox(`mode: ${segment}`))
+
+            const _api = new API({ context, segment });
 
             const file = UploadImgForm.imageUploadInput.files[0]
-            if (!file){
+
+            if (!file && (!context || context.length ===0)) {
                 window.confirm("nothing to send");
                 return
             }
+
+            const output = new OUTPUT()
+
+            const startTime = performance.now(); // Get start time
+            UploadImgForm.spinnerToggle('on')
+            let apiResponse
+
             if (file) {
-                const startTime = performance.now(); // Get start time
-
-                UploadImgForm.spinnerToggle('on')
                 UploadImgForm.adjustInitTextarea()
-                const customSlider = document.querySelector('custom-slider[selected="1"]');
-                const segment = customSlider.contentinit
-                const _api = new API({ context, segment });
-                const apiResponse = await _api.CALL(file)
-                console.log("apiResponse", apiResponse)
-
-                const data = apiResponse.data.response
-                console.log("data", data)
-                d.querySelector('.bubble-box-form').innerHTML = ''
-
-                let addtltag
-
-                if (context) addtltag = context.split(/[ ,;]+/)
-
-                Object.keys(data).map(a => {
-                    const content = data[a]
-
-            switch (true) {
-                case 
-                a === 'Description' ||
-                a === 'Scenario Description' :
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'summary',
-                            logo: 'summary',
-                            addtltag,
-                            content
-                        }))
-                    break;
-
-                case 
-                a === 'Compliance Risks' || 
-                a === 'Pollution and Emissions' ||
-                a === 'Resource Depletion':
-
-                    d.querySelector('.bubble-box-form').appendChild(new HeadlineBox(a))
-                    
-                    if (content['Recognized Risk'] || content['Recognized Risk'] !== '') {
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'Recognized Risk',
-                            logo: 'r_risks',
-                            addtltag,
-                            content: content['Recognized Risk']
-                        }))
-                    }
-
-                    if (content['Potential Risk']) {
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'Potential Risk',
-                            logo: 'p_risks',
-                            addtltag,
-                            content: content['Potential Risk']
-                        }))
-                    }
-
-                    if (content['Finding']) {
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'Finding',
-                            logo: 'findings',
-                            addtltag,
-                            content: content['Finding']
-                        }))
-                    }
-
-                    if (content['Action']){
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'Actions',
-                            logo: 'findings',
-                            addtltag,
-                            content: content['Action']
-                        }))
-                    }
-
-                break;
-
-                default:
-                    d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                        header: a,
-                        logo: 'p_risks',
-                        type: 'scores',
-                        addtltag,
-                        content
-                    })) 
-                    break;
+                apiResponse = await _api.SEND_IMG(file)
+                if (context.length > 0) output.addContext(context)
             }
-})
+
+            if (context.length > 0 && !file){//Send text only
+                apiResponse = await _api.SEND_TXT(context)
+            }
+
+           const data = apiResponse.data.response
+            
+            // const data = {
+            //     "Description": "The image depicts a construction or industrial site with piles of earth, a truck, and some machinery. The area appears to be in a rural or forested location.",
+            //     "Compliance Risks": {
+            //         "Recognized Risk": "",
+            //         "Potential Risk": "Failure to comply with environmental regulations regarding land use, waste management, and emissions control.",
+            //         "Finding": "The site appears to lack visible measures for managing waste and emissions, which may lead to non-compliance with environmental regulations.",
+            //         "Action": "Conduct a thorough review of applicable environmental regulations and ensure that all necessary permits and compliance measures are in place. Implement waste management and emissions control protocols."
+            //     },
+            //     "Resource Depletion": {
+            //         "Recognized Risk": "",
+            //         "Potential Risk": "Excessive use of natural resources such as water and raw materials for construction.",
+            //         "Finding": "The site shows signs of significant earth movement and potential resource use without visible conservation measures."
+            //     },
+            //     "Pollution and Emissions": {
+            //         "Recognized Risk": "",
+            //         "Potential Risk": "Soil and water contamination from construction activities and machinery emissions.",
+            //         "Finding": "The site has exposed soil and machinery, which could lead to pollution if not properly managed."
+            //     }
+            // }
+            output.render(data)
+
             UploadImgForm.spinnerToggle('off')
-
-                const endTime = performance.now(); // Get end time
-
-                const executionTimeInSeconds = (endTime - startTime) / 1000; // Calculate execution time in seconds
-
-                const roundedExecutionTime = executionTimeInSeconds.toFixed(2);
-
-                d.querySelector('.bubble-box-form').appendChild(new TextBox(`execution time: ${roundedExecutionTime} seconds`))
-            }
+            //d.querySelector('.render-info').innerHTML = ''
+            const endTime = performance.now(); // Get end time
+            const executionTimeInSeconds = (endTime - startTime) / 1000; // Calculate execution time in seconds
+            const roundedExecutionTime = executionTimeInSeconds.toFixed(2);
+            d.querySelector('.bubble-box-form').appendChild(new TextBox(`execution time: ${roundedExecutionTime} seconds`))
         }, false);
+
+
+
+
+
 
         }
 }

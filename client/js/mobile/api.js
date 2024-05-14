@@ -9,7 +9,7 @@ export class API {
         this.segment = segment.toUpperCase()
     }
 
-CALL = async (file) => {
+SEND_IMG = async (file) => {
 
     try {
         
@@ -22,7 +22,7 @@ CALL = async (file) => {
         headers: {
             'Content-Type': 'multipart/form-data'
         },
-        validateStatus: function (status) {
+        validateStatus: function () {
             return true;
         }
     }
@@ -35,7 +35,31 @@ return response
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
-        ret
     }
 }
+
+    SEND_TXT = async (textData) => {
+
+        try {
+            const response = await axios.get(imageURL, {
+                params: {
+                    context: textData,
+                    segment: this.segment
+                },
+                validateStatus: function () {
+                    return true;
+                }
+            }
+            )
+
+            console.log(response)
+            return response
+
+        } catch (error) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+    }
+
 }

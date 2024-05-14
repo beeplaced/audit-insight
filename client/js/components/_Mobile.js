@@ -110,6 +110,7 @@ export class BubbleBox extends COMPONENTS {
             default:
                 tags = [
                     "waste",
+                    "debris",
                     "wear",
                     "environmental",
                     "management",
@@ -216,8 +217,27 @@ export class ShowImage extends COMPONENTS {
         
             const meta = `${that.formatUnixTimestampToGermanDate(file.lastModified)} | ${that.formatFileSize(file.size)}`
 
+            // Extract GPS coordinates if available
+            // const exifData = EXIF.getData(file); 
+            // console.log(exifData)
+            // const gpsInfo = exifData ? exifData.gps : null;
+
+            // if (gpsInfo) {
+            //     const latitude = gpsInfo.GPSLatitude;
+            //     const longitude = gpsInfo.GPSLongitude;
+            //     const altitude = gpsInfo.GPSAltitude;
+
+            //     console.log('GPS Latitude:', formatGPS(latitude));
+            //     console.log('GPS Longitude:', formatGPS(longitude));
+            //     console.log('GPS Altitude:', altitude + ' meters above sea level');
+            // } else {
+            //     console.log('No GPS data found in the image.');
+            // }
+
+
             let imgBox = that.divocol({ class: 'img-box' })
             imgBox += that.divc({ class: 'img-box-img' })
+            imgBox += that.divc({ class: '_t img-box-text img-box-text-title', content: file.name })
             imgBox += that.divc({ class: '_t img-box-text', content: meta })
             imgBox += that.end(1)
 
@@ -313,8 +333,8 @@ export class UploadImg extends COMPONENTS {
         c += this.divc({ class: 'upload-box-icon' })
         c += `<div class="spinner" id="spinner"></div>`
 
-        c += this.divocol({class: ''})
-        c += this.divc({ class: 'img-selected', content:'little text' })
+        c += this.divocol({ class: 'upload-input-wrapper'})
+        //c += this.divc({ class: 'img-selected', content:'little text' })
         c += this.divorow({ class: '' })
         c += `<textarea 
         class="upload-box-input" 

@@ -1,9 +1,15 @@
 export class SVG {
 
     nav = () => {
-        return `<svg class="nav-btn-svg" viewBox="0 0 24 24">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M20 6v2H4V6h16zm0 5v2H4v-2h16zm0 5v2H4v-2h16z"></path>
-        </svg>`
+        return `<svg width="30" height="30" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-.051881 .051881)" fill="#b3b3b3">
+  <rect x="2.0607" y="2.7251" width="25.982" height="2.8967" ry="1.4484"/>
+  <rect x="2.1126" y="24.274" width="25.982" height="2.8967" ry="1.4484"/>
+  <rect x="2.0088" y="13.5" width="25.982" height="2.8967" ry="1.4484"/>
+ </g>
+</svg>
+
+`
     }
 
     menu = () => {

@@ -1,0 +1,9 @@
+[Unit]
+Description=Audit Image Recognition.
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /root/DEV/audit-insight/start.sh
+
+[Install]
+WantedBy=multi-user.target
