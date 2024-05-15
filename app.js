@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const packageJson = require('./package.json');
+console.log(packageJson)
 const version = packageJson.version
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
