@@ -1,3 +1,43 @@
+:root {
+    --input-bck-color: #9e9ddb;
+    --darker-color: rgb(58, 158, 244);
+    --bs-border-radius: .375rem;
+    --input-title-color: rgb(158, 157, 219);
+    --blue: #80AED0;
+    --logo-first-color: var(--input-bck-color);
+    --logo-box-color: var(--darker-color);
+    --white: mintcream;
+    --input-placeholder-color: rgb(200, 200, 200);
+    --slider-ball-measure: 15px;
+    --window-box-shadow: rgba(95, 116, 141, 0.03) 0px 5px 10px -3px, rgba(95, 116, 141, 0.04) 0px 8px 18px 1px, rgba(95, 116, 141, 0.08) 0px 3px 33px 2px;
+    --slider-ball-measure: 20px;
+    --header-color: #717171;
+    --footer-bck-color: #3D3E42;
+}
+/* Set the placeholder color for all input elements */
+input::placeholder {
+    color: var(--input-placeholder-color); /* Change this to the desired color */
+}
+
+/* Specific styling for a specific input with a class "custom-input" */
+.custom-input::placeholder {
+    color: var(--input-placeholder-color);
+}
+
+/* For textarea elements */
+textarea::placeholder {
+    color: var(--input-placeholder-color);
+}
+
+html,
+body {
+  resize: none;
+}
+
+body {
+  touch-action: manipulation;
+}
+
 html{
     font-family: SoDoSans, sans-serif;
     font-feature-settings: "calt";
@@ -1247,7 +1287,7 @@ background-color: rgb(150, 207, 150)
     box-shadow: var(--window-box-shadow);
 }
 
-.highlight, .highlight-0, .highlight-1, .highlight-2 {
+.highlight-0, .highlight-1, .highlight-2 {
     font-weight: bold;
     padding: 1px 4px 2px 4px;
     border-radius: 3px;
@@ -1255,8 +1295,7 @@ background-color: rgb(150, 207, 150)
 }
 
 .highlight{
-    background-color: lightyellow;
-    font-weight: normal;
+    text-decoration: underline;
 }
 
 .highlight-0 {

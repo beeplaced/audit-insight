@@ -25,38 +25,6 @@ app.get('/404', (req, res) => {
     res.render('404');
 });
 
-
-//     return
-
-//     const { context, segment } = req.headers
-
-//     let responseData = {};
-
-//     switch (segment) {
-//         case 'risk_score':
-//             responseData = {
-//                 message: 'File upload received and acknowledged',
-//                 'summary': 'The scenario involves a complex industrial machinery setup within a facility, suggesting a controlled and possibly automated industrial process. The machinery includes cylindrical sections, valves, and connecting pipes, with an electrical box for operational controls',
-//                 'frequency': 'Medium - Given the nature of the organizations operations and reliance on industrial machinery, the likelihood of a risk scenario occurring is moderate',
-//                 'feasibility': 'High - The presence of industrial machinery with electrical integrations poses a high feasibility for potential threat actors to exploit vulnerabilities and disrupt operations',
-//                 'impact': 'Medium - A disruption in the industrial process due to a risk scenario could result in moderate financial losses from system downtime, maintenance costs, and potential regulatory fines',
-//                 'risk_assessment': 'Medium'
-//             };
-//             break;
-    
-//         default: //Audits
-//             responseData = {
-//                 message: 'File upload received and acknowledged',
-//                 summary: 'The image depicts a slick of oil, manifesting as a lustrous, dark sheen which contrasts markedly with the underlying, earth-toned gritty texture.The irregular edges and patterns of the spillage are nuanced, reflecting light in various shades of amber and brown.Shadowy elements, possibly from an overhead structure, intersect the oil slick, introducing a geometric aspect to the otherwise organic flow of the spill. Specks and debris scattered across the surface add further texture to the scene, suggesting an outdoor or industrial setting',
-//                 recognized_risk: 'Oil spill resulting in environmental contamination and potential harm to wildlife',
-//                 potential_risk: 'Inadequate containment and cleanup efforts leading to long-term pollution of soil and water sources',
-//                 finding: 'The organization should enhance spill response procedures to effectively mitigate pollution risks and prevent further environmental damage'
-//             };
-//             break;
-//     }
-//     res.json(responseData);
-// });
-
 app.get('/login', (req, res) => {
     res.render('login');
 });
