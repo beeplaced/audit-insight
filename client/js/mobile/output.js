@@ -11,6 +11,7 @@ export class OUTPUT {
     }
 
     render = (data) => {
+        console.log(data)
         if (!typeof data === 'object') {
             console.log('data is incorrect')
             d.querySelector('.bubble-box-form').appendChild(new HeadlineBox('incorrect data return'))
@@ -45,21 +46,39 @@ export class OUTPUT {
 
                     d.querySelector('.bubble-box-form').appendChild(new HeadlineBox(a))
 
-                    if (content['Recognized Risk'] || content['Recognized Risk'] !== '') {
-                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                            header: 'Recognized Risk',
-                            logo: 'r_risks',
-                            addtltag,
-                            content: content['Recognized Risk']
-                        }))
-                    }
+                    // if (content['Recognized Risk'] || content['Recognized Risk'] !== '') {
+                    //     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                    //         header: 'Recognized Risk',
+                    //         logo: 'r_risks',
+                    //         addtltag,
+                    //         content: content['Recognized Risk']
+                    //     }))
+                    // }
 
                     if (content['Potential Risk']) {
                         d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
                             header: 'Potential Risk',
-                            logo: 'p_risks',
+                            logo: 'risks',
                             addtltag,
                             content: content['Potential Risk']
+                        }))
+                    }
+
+                    if (content['Recommendation']) {
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Recommendation',
+                            logo: 'p_risks',
+                            addtltag,
+                            content: content['Recommendation']
+                        }))
+                    }
+
+                    if (content['Root-Cause']) {
+                        d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                            header: 'Root-Cause',
+                            logo: 'p_risks',
+                            addtltag,
+                            content: content['Root-Cause']
                         }))
                     }
 
