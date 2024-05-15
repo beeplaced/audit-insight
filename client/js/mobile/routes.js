@@ -135,7 +135,7 @@ export const routes = {
             } catch (error) {
                 console.error(error)
                 const errorMessage = encodeURIComponent(error.message);
-              //  window.location.href = `/error?message=${errorMessage}`;
+                window.location.href = `/error?message=${errorMessage}`;
             }
         }, false);
 
