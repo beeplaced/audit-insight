@@ -91,12 +91,7 @@ export class SLIDER extends COMPONENTS {
     constructor(params) {
         super();
         this.params = params
-        if (this.params.cache) {
-            const { segment, element } = this.params.cache
-            this.selected = __cache.read(segment, element)
-        } else {
-            this.selected = params.selected ? params.selected : 0
-        }
+        this.selected = params.selected ? params.selected : 0
         this.contentinit = params.contentinit ? params.contentinit : 'init'
         this.setAttribute('selected', this.selected);
     }
@@ -126,6 +121,7 @@ export class SLIDER extends COMPONENTS {
         this.ball.classList.add('deactivate-slider');
         this.sliderBoxInner.classList.add('deactivate-sliderbox')
         this.setAttribute('selected', 0);
+        this.selected = 0
         this.txt.innerText = this.off
         this.txt.classList.remove('radio-txt-active')
     }
@@ -135,12 +131,13 @@ export class SLIDER extends COMPONENTS {
         this.ball.classList.add('activate-slider');
         this.sliderBoxInner.classList.remove('deactivate-sliderbox')
         this.setAttribute('selected', 1);
+        this.selected = 1
         this.txt.innerText = this.on
         this.txt.classList.add('radio-txt-active')
     }
 
     addtl = () => {
-        console.log('mofify')
+        console.log('modify')
     }
 
     render() {
@@ -169,11 +166,11 @@ export class SLIDER extends COMPONENTS {
             this.sliderBoxFlicker();
             const attr = this.getAttribute('selected');
 
-            if (this.params.cache) {
-                const { segment, element } = this.params.cache
-                const set = parseInt(attr) === 1 ? 0 : 1
-                this.selected = __cache.write(segment, element, set)
-            }
+            // if (this.params.cache) {
+            //     const { segment, element } = this.params.cache
+            //     const set = parseInt(attr) === 1 ? 0 : 1
+            //     this.selected = __cache.write(segment, element, set)
+            // }
 
             switch (true) {
                 case attr === "1":

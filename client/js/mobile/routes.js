@@ -2,6 +2,7 @@ import { SVG } from './svg.js'; const _svg = new SVG();
 import { TextBox, BubbleBox, ShowImage, UploadImg, HeadlineBox } from '../components/_Mobile.js';
 
 import { API } from './api.js';
+import { IMAGECOMPRESS } from './compressor.js';
 import { OUTPUT } from './output.js';
 import { MENU } from './menu.js';
 const d = document
@@ -48,8 +49,10 @@ export const routes = {
 
         const sendBtn = d.querySelector('.upload-box-btn')
 
+        let file
+
         UploadImgForm.imageUploadInput.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
+            file = e.target.files[0];
             UploadImgForm.inputField.placeholder = 'add optional context'
             UploadImgForm.handleInput()
             d.querySelector('.img-box-render').innerHTML = ''
@@ -57,16 +60,23 @@ export const routes = {
         })
 
         sendBtn.addEventListener('click', async (e) => {
+
             const txtEntry = d.querySelector('.upload-box-input')
             const context = txtEntry.value
             const customSlider = d.querySelector('custom-slider[selected="1"]');
             const segment = customSlider.contentinit
-
-            //d.querySelector('.render-info').appendChild(new HeadlineBox(`mode: ${segment}`))
-
+            let file = UploadImgForm.imageUploadInput.files[0]
+            
+            
+            const size = file.size
+            const compressSlider = d.querySelector('compress-slider');
+            if (compressSlider.selected) {
+                const comp = new IMAGECOMPRESS(file)
+                file = await comp.compress()
+                if (size !== file.size) d.querySelector('[img_meta]').innerHTML += ` > ${comp.formatFileSize(file.size)}`
+            }
+          
             const _api = new API({ context, segment });
-
-            const file = UploadImgForm.imageUploadInput.files[0]
 
             if (!file && (!context || context.length ===0)) {
                 window.confirm("nothing to send");

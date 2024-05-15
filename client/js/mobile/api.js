@@ -3,16 +3,13 @@ const imageURL = `https://mqsbls9jf2.execute-api.eu-central-1.amazonaws.com/imag
 export class API {
 
     constructor(params) {
-
         const { context, segment } = params
         this.context = context
         this.segment = segment.toUpperCase()
     }
 
 SEND_IMG = async (file) => {
-
-    try {
-        
+    try { 
     const formData = new FormData();
     formData.append('context', this.context);
     formData.append('segment', this.segment);
@@ -39,7 +36,6 @@ return response
 }
 
     SEND_TXT = async (textData) => {
-
         try {
             const response = await axios.get(imageURL, {
                 params: {
@@ -51,7 +47,6 @@ return response
                 }
             }
             )
-
             console.log(response)
             return response
 

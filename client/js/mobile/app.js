@@ -7,7 +7,6 @@ d.addEventListener('DOMContentLoaded', async () => {
     const logo = d.querySelector('.nav-logo')
     logo.appendChild(document.createRange().createContextualFragment(_svg.logoNav()))
 
-
     const nav = d.querySelector('nav')
     const navBtn = nav.querySelector('.nav-btn')
 

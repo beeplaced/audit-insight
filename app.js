@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const packageJson = require('./package.json');
-console.log(packageJson)
+
 const version = packageJson.version
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -12,7 +12,6 @@ app.use('/client', express.static(path.join(__dirname, 'client')));
 app.use('/custom-elements', express.static(__dirname + '/node_modules/custom-elements/components.js'));
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
 

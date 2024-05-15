@@ -178,7 +178,6 @@ export class ShowImage extends COMPONENTS {
     const sizes = ['bytes', 'kb', 'mb', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     const formattedSize = parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + ' ' + sizes[i];
-
     return formattedSize;
 }
 
@@ -238,9 +237,8 @@ export class ShowImage extends COMPONENTS {
             let imgBox = that.divocol({ class: 'img-box' })
             imgBox += that.divc({ class: 'img-box-img' })
             imgBox += that.divc({ class: '_t img-box-text img-box-text-title', content: file.name })
-            imgBox += that.divc({ class: '_t img-box-text', content: meta })
+            imgBox += that.divc({ class: '_t img-box-text', atrs: 'img_meta', content: meta })
             imgBox += that.end(1)
-
             that.innerHTML = imgBox
         // Create a new <img> element
         const imgElement = document.createElement('img');
@@ -255,20 +253,18 @@ export class ShowImage extends COMPONENTS {
 }; customElements.define('img-box', ShowImage);
 
 export class RenderSelection extends COMPONENTS {
-    constructor(input) {
+    constructor(headline) {
         super();
+        this.headline = headline
         this.render()
     }
 
     render() {
 
-        let box = this.divc({ class: 'headline', content: 'What would you like to do?'})
+        let box = this.divc({ class: 'headline', content: this.headline})
         box += this.divc({ class: 'checkboxes' })
         this.innerHTML = box
-
         this.checkboxes = this.querySelector('.checkboxes')
-
-
     }
 
 }; customElements.define('render-selection-box', RenderSelection);

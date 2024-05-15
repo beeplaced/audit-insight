@@ -11,6 +11,9 @@ export class Content {
             },
             risk_score: () => {
                 return { on: 'create Risk Score', off: 'create Risk Score' }
+            },
+            compress_images: () => {
+                return { on: 'compress > 1MB | png > jpg', off: 'no compression'}
             }
         }
 
