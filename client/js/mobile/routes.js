@@ -59,15 +59,16 @@ export const routes = {
             d.querySelector('.img-box-render').appendChild(new ShowImage({ file }))
         })
 
-        sendBtn.addEventListener('click', async (e) => {
 
+
+        sendBtn.addEventListener('click', async (e) => {
+            try {
             const txtEntry = d.querySelector('.upload-box-input')
             const context = txtEntry.value
             const customSlider = d.querySelector('custom-slider[selected="1"]');
             const segment = customSlider.contentinit
             let file = UploadImgForm.imageUploadInput.files[0]
-            
-            
+                        
             const size = file.size
             const compressSlider = d.querySelector('compress-slider');
             if (compressSlider.selected) {
@@ -128,12 +129,12 @@ export const routes = {
             const executionTimeInSeconds = (endTime - startTime) / 1000; // Calculate execution time in seconds
             const roundedExecutionTime = executionTimeInSeconds.toFixed(2);
             d.querySelector('.bubble-box-form').appendChild(new TextBox(`execution time: ${roundedExecutionTime} seconds`))
+            } catch (error) {
+                //console.error(error)
+                const errorMessage = encodeURIComponent(error.message);
+                window.location.href = `/error?message=${errorMessage}`;
+            }
         }, false);
-
-
-
-
-
 
         }
 }

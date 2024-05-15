@@ -30,7 +30,7 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/error', (req, res) => {
-    const errorMessage = req.query.message || 'An unexpected error occurred';
+    const errorMessage = req.query.message || 'An error occurred';
     res.render('error', { errorMessage });
 });
 
