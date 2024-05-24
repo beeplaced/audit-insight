@@ -36,7 +36,7 @@ app.get('/aws-redirect', (req, res) => {
 });
 
 app.get('/aws', (req, res) => {
-    res.redirect('https://applogin.auth.eu-central-1.amazoncognito.com/login?client_id=3knkufja1peioqmem56638qv8u&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fexample.com');
+    res.redirect(process.env.AWS_LOGIN_SERVER);
 });
 
 app.get('/error', (req, res) => {
