@@ -29,6 +29,16 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
+app.get('/aws-redirect', (req, res) => {
+    console.log(req)
+    console.log(res)
+    res.status(200).send('redirect');
+});
+
+app.get('/aws', (req, res) => {
+    res.redirect('https://applogin.auth.eu-central-1.amazoncognito.com/login?client_id=3knkufja1peioqmem56638qv8u&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fexample.com');
+});
+
 app.get('/error', (req, res) => {
     const errorMessage = req.query.message || 'An error occurred';
     res.render('error', { errorMessage });

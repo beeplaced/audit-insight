@@ -120,6 +120,7 @@ export class BubbleBox extends COMPONENTS {
                     "inspections",
                     "compliance",
                     "safety",
+                    "PPE",
                     "spills",
                     "leaks",
                     "recycling",
@@ -328,7 +329,6 @@ export class UploadImg extends COMPONENTS {
         c += `<input type="file" id="imageUploadInput" accept="image/*" style="display: ;" >`
         c += this.divc({ class: 'upload-box-icon' })
         c += `<div class="spinner" id="spinner"></div>`
-
         c += this.divocol({ class: 'upload-input-wrapper'})
         //c += this.divc({ class: 'img-selected', content:'little text' })
         c += this.divorow({ class: '' })

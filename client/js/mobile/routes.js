@@ -1,6 +1,5 @@
 import { SVG } from './svg.js'; const _svg = new SVG();
 import { TextBox, BubbleBox, ShowImage, UploadImg, HeadlineBox } from '../components/_Mobile.js';
-
 import { API } from './api.js';
 import { IMAGECOMPRESS } from './compressor.js';
 import { OUTPUT } from './output.js';
@@ -53,8 +52,11 @@ export const routes = {
 
         UploadImgForm.imageUploadInput.addEventListener('change', async (e) => {
             file = e.target.files[0];
+            console.log(UploadImgForm.inputField.value)
+            if (!UploadImgForm.inputField.value || UploadImgForm.inputField.value === ''){
             UploadImgForm.inputField.placeholder = 'add optional context'
-            UploadImgForm.handleInput()
+            }
+            //UploadImgForm.handleInput()
             d.querySelector('.img-box-render').innerHTML = ''
             d.querySelector('.img-box-render').appendChild(new ShowImage({ file }))
         })
@@ -69,13 +71,7 @@ export const routes = {
             const segment = customSlider.contentinit
             let file = UploadImgForm.imageUploadInput.files[0]
                         
-            const size = file.size
-            const compressSlider = d.querySelector('compress-slider');
-            if (compressSlider.selected) {
-                const comp = new IMAGECOMPRESS(file)
-                file = await comp.compress()
-                if (size !== file.size) d.querySelector('[img_meta]').innerHTML += ` > ${comp.formatFileSize(file.size)}`
-            }
+
           
             const _api = new API({ context, segment });
 
@@ -85,12 +81,18 @@ export const routes = {
             }
 
             const output = new OUTPUT()
-
             const startTime = performance.now(); // Get start time
             UploadImgForm.spinnerToggle('on')
             let apiResponse
 
             if (file) {
+                const size = file.size
+                const compressSlider = d.querySelector('compress-slider');
+                if (compressSlider.selected) {
+                    const comp = new IMAGECOMPRESS(file)
+                    file = await comp.compress()
+                    if (size !== file.size) d.querySelector('[img_meta]').innerHTML += ` > ${comp.formatFileSize(file.size)}`
+                }
                 UploadImgForm.adjustInitTextarea()
                 apiResponse = await _api.SEND_IMG(file)
                 if (context.length > 0) output.addContext(context)
@@ -135,7 +137,7 @@ export const routes = {
             } catch (error) {
                 console.error(error)
                 const errorMessage = encodeURIComponent(error.message);
-                window.location.href = `/error?message=${errorMessage}`;
+              //  window.location.href = `/error?message=${errorMessage}`;
             }
         }, false);
 
