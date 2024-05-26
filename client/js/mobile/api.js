@@ -22,6 +22,7 @@ export class API {
                 headers: {
                     'Authorization': Authorization,
                     'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Request-Method': 'POST',
                     'Content-Type': 'multipart/form-data'
                 },
                 validateStatus: function () {
