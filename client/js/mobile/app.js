@@ -4,6 +4,19 @@ import { routes } from './routes.js'
 const d = document
 
 d.addEventListener('DOMContentLoaded', async () => {
+
+    function getAllCookies() {
+        const cookies = document.cookie.split('; ');
+        const cookieObj = {};
+        cookies.forEach(cookie => {
+            const [name, ...value] = cookie.split('=');
+            cookieObj[name] = value.join('=');
+        });
+        return cookieObj;
+    }
+
+    console.log(getAllCookies())
+
     const logo = d.querySelector('.nav-logo')
     logo.appendChild(document.createRange().createContextualFragment(_svg.logoNav()))
 
