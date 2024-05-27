@@ -32,12 +32,52 @@ export class OUTPUT {
                     a === 'Description' ||
                     a === 'Scenario Description':
                     d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
-                        header: 'summary',
+                        header: 'Summary',
                         logo: 'summary',
                         addtltag,
                         content
                     }))
                     break;
+
+                    case 
+                    a === 'Risk Scenarios':
+                    d.querySelector('.bubble-box-form').appendChild(new HeadlineBox(`Risk Scenarios`))
+                    content.map((c,i) => {
+
+                        if (c['Description']) {
+                            const header = c['Scenario'] ? `Risk Scenario | ${c['Scenario']}` : `Risk Scenario`
+                            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                                header,
+                                logo: 'risks',
+                                addtltag,
+                                content: c['Description']
+                            }))
+                        }
+
+                        if (c['Risk Score']) {
+                            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                                header: 'Risk Score',
+                                logo: 'p_risks',
+                                type: 'scores',
+                                addtltag,
+                                content: c['Risk Score']
+                            }))
+                        }
+                        if (c['Norm reference']) {
+                            d.querySelector('.bubble-box-form').appendChild(new BubbleBox({
+                                header: 'Norm reference',
+                                logo: 'risks',
+                                addtltag,
+                                content: c['Norm reference']
+                            }))
+                        }
+
+
+                    })
+
+                    console.log(content)
+                    break;
+
 
                 case
                     a === 'Compliance Risks' ||

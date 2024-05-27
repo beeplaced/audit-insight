@@ -10,27 +10,64 @@ export const routes = {
 
     start: async () => {
 
-        // const data = {
-        //     "Description": "The image depicts a construction or industrial site with piles of earth, a truck, and some machinery. The area appears to be in a rural or forested location.",
-        //     "Compliance Risks": {
-        //         "Recognized Risk": "",
-        //         "Potential Risk": "Failure to comply with environmental regulations regarding land use, waste management, and emissions control.",
-        //         "Finding": "The site appears to lack visible measures for managing waste and emissions, which may lead to non-compliance with environmental regulations.",
-        //         "Action": "Conduct a thorough review of applicable environmental regulations and ensure that all necessary permits and compliance measures are in place. Implement waste management and emissions control protocols."
-        //     },
-        //     "Resource Depletion": {
-        //         "Recognized Risk": "",
-        //         "Potential Risk": "Excessive use of natural resources such as water and raw materials for construction.",
-        //         "Finding": "The site shows signs of significant earth movement and potential resource use without visible conservation measures."
-        //     },
-        //     "Pollution and Emissions": {
-        //         "Recognized Risk": "",
-        //         "Potential Risk": "Soil and water contamination from construction activities and machinery emissions.",
-        //         "Finding": "The site has exposed soil and machinery, which could lead to pollution if not properly managed."
-        //     }
-        // }
-
-
+    //     const data = {
+    //     "Description": "The image depicts a large pile of mixed construction and demolition waste, including wood, metal, and other materials, in an outdoor area. There is an excavator on top of the pile, indicating ongoing waste handling activities.",
+    //         "Risk Scenarios": [
+    //             {
+    //                 "Scenario": "Unsegregated Waste",
+    //                 "Description": "The waste appears to be unsegregated, which can lead to inefficient recycling and disposal processes.",
+    //                 "Risk Score": "High - The lack of segregation can result in significant environmental impact and non-compliance with waste management regulations.",
+    //                 "Norm reference": "ISO 14001:2015, Clause 8.1 - Operational Planning and Control"
+    //             },
+    //             {
+    //                 "Scenario": "Potential for Contamination",
+    //                 "Description": "Mixed waste can lead to contamination of recyclable materials, reducing the effectiveness of recycling efforts.",
+    //                 "Risk Score": "Medium - Contamination can be mitigated with proper waste management practices, but the current state poses a moderate risk.",
+    //                 "Norm reference": "ISO 14001:2015, Clause 8.2 - Emergency Preparedness and Response"
+    //             },
+    //             {
+    //                 "Scenario": "Safety Hazards",
+    //                 "Description": "The large, unorganized pile of waste poses safety hazards for workers, including the risk of injury from sharp objects or unstable materials.",
+    //                 "Risk Score": "High - The physical hazards present a significant risk to worker safety.",
+    //                 "Norm reference": "ISO 14001:2015, Clause 6.1.2 - Environmental Aspects"
+    //             }
+    //         ],
+    //             "Finding": "There is clear evidence of unmanaged waste segregation and potential safety hazards.",
+    //                 "Root Cause": "The underlying factors contributing to these deviations include inadequate waste management procedures, lack of training for workers on proper waste segregation, and insufficient safety protocols.",
+    //                     "Risk Score": [
+    //                         {
+    //                             "Scenario": "Unsegregated Waste",
+    //                             "Risk Score": "High - The lack of segregation can result in significant environmental impact and non-compliance with waste management regulations."
+    //                         },
+    //                         {
+    //                             "Scenario": "Potential for Contamination",
+    //                             "Risk Score": "Medium - Contamination can be mitigated with proper waste management practices, but the current state poses a moderate risk."
+    //                         },
+    //                         {
+    //                             "Scenario": "Safety Hazards",
+    //                             "Risk Score": "High - The physical hazards present a significant risk to worker safety."
+    //                         }
+    //                     ],
+    //                         "Norm reference": [
+    //                             {
+    //                                 "Scenario": "Unsegregated Waste",
+    //                                 "Norm reference": "ISO 14001:2015, Clause 8.1 - Operational Planning and Control"
+    //                             },
+    //                             {
+    //                                 "Scenario": "Potential for Contamination",
+    //                                 "Norm reference": "ISO 14001:2015, Clause 8.2 - Emergency Preparedness and Response"
+    //                             },
+    //                             {
+    //                                 "Scenario": "Safety Hazards",
+    //                                 "Norm reference": "ISO 14001:2015, Clause 6.1.2 - Environmental Aspects"
+    //                             }
+    //                         ]
+    // }
+        // const output = new OUTPUT()
+        // output.render(data)
+        // return
+        
+        //
         const UploadImgForm = new UploadImg()
         d.querySelector('.img-box-upload').appendChild(UploadImgForm)
 
@@ -102,7 +139,7 @@ export const routes = {
                 apiResponse = await _api.SEND_TXT(context)
             }
 
-          const data = apiResponse.data.response
+          const data = apiResponse.response
             
             // const data = {
             //             "Description": "The image shows a rusted metal container placed near a building with visible signs of wear and tear. There is also some visible dust or smoke in the air.",
