@@ -11,6 +11,25 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use('/client', express.static(path.join(__dirname, 'client')));
 //app.use('/custom-elements', express.static(__dirname + '/node_modules/custom-elements/components.js'));
+const winston = require('winston');
+
+// Create a new winston logger instance
+const logger = winston.createLogger({
+    level: 'info', // Set the log level
+    format: winston.format.combine(
+        winston.format.timestamp(),  // Add timestamp to each log
+        winston.format.printf(({ timestamp, level, message }) => {
+            return `${timestamp} [${level.toUpperCase()}]: ${message}`;
+        })
+    ),
+    transports: [
+        new winston.transports.File({ filename: 'app.log' }), // Log to a file
+        new winston.transports.Console() // Optionally log to the console
+    ]
+});
+
+// Log some messages
+
 
 app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
@@ -31,16 +50,16 @@ app.get('/auth', async (req, res) => {
     })
 
 app.get('/login', (req, res) => {
-    console.log('1')
+    logger.info('login');
     res.redirect(process.env.AWS_LOGIN_SERVER);
     //amazon-cognito-identity.js
 });
 
 app.get('/', async (req, res) => {
+    logger.info('route');
     try {
     const isMobile = /Mobile/i.test(req.headers['user-agent']);
     const title = 'Fusion Frame'
-    console.log('2')
     res.render('mobile', { title, version, isMobile });
     } catch (error) {
         console.log(error)
