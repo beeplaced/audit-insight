@@ -31,6 +31,7 @@ app.get('/auth', async (req, res) => {
     })
 
 app.get('/login', (req, res) => {
+    console.log('1')
     res.redirect(process.env.AWS_LOGIN_SERVER);
     //amazon-cognito-identity.js
 });
@@ -39,6 +40,7 @@ app.get('/', async (req, res) => {
     try {
     const isMobile = /Mobile/i.test(req.headers['user-agent']);
     const title = 'Fusion Frame'
+    console.log('2')
     res.render('mobile', { title, version, isMobile });
     } catch (error) {
         console.log(error)
