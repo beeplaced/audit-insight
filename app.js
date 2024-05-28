@@ -29,7 +29,7 @@ const logger = winston.createLogger({
 });
 
 // Log some messages
-
+logger.info('init');
 
 app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
