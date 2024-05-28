@@ -1,6 +1,6 @@
 {
   "name": "audit-insight",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.583.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

@@ -1,21 +1,27 @@
 import { SVG } from './svg.js'; const _svg = new SVG();
 import { routes } from './routes.js'
+import { token } from './auth.js'
 
 const d = document
 
+
+
 d.addEventListener('DOMContentLoaded', async () => {
+    //localStorage.clear()
+    await token.check()
+    // function getAllCookies() {
+    //     const cookies = document.cookie.split('; ');
+    //     const cookieObj = {};
+    //     cookies.forEach(cookie => {
+    //         const [name, ...value] = cookie.split('=');
+    //         cookieObj[name] = value.join('=');
+    //     });
+    //     return cookieObj;
+    // }
 
-    function getAllCookies() {
-        const cookies = document.cookie.split('; ');
-        const cookieObj = {};
-        cookies.forEach(cookie => {
-            const [name, ...value] = cookie.split('=');
-            cookieObj[name] = value.join('=');
-        });
-        return cookieObj;
-    }
+    // console.log(getAllCookies())
 
-    console.log(getAllCookies())
+
 
     const logo = d.querySelector('.nav-logo')
     logo.appendChild(document.createRange().createContextualFragment(_svg.logoNav()))
@@ -68,7 +74,6 @@ d.addEventListener('DOMContentLoaded', async () => {
         //             break;
         //     }
         // });
-
     })
 
 
