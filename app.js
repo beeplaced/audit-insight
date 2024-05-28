@@ -6,31 +6,11 @@ const packageJson = require('./package.json');
 const api = require('./cognito')
 
 const version = packageJson.version
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
-app.use('/client', express.static(path.join(__dirname, 'client')));
 //app.use('/custom-elements', express.static(__dirname + '/node_modules/custom-elements/components.js'));
-const winston = require('winston');
-
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.printf(({ timestamp, level, message }) => {
-            return `${timestamp} [${level.toUpperCase()}]: ${message}`;
-        })
-    ),
-    transports: [
-        new winston.transports.Console(), // Console transport
-        new winston.transports.File({ filename: 'app.log' }) // File transport
-    ]
-});
-
-// Log some messages
-logger.info('init');
 
 app.use((err, req, res, next) => {
+    console.error(err)
     res.status(500).send('Something went wrong!');
 });
 
@@ -49,13 +29,15 @@ app.get('/auth', async (req, res) => {
     })
 
 app.get('/login', (req, res) => {
-    logger.info('login');
     res.redirect(process.env.AWS_LOGIN_SERVER);
     //amazon-cognito-identity.js
 });
 
 app.get('/', async (req, res) => {
-    logger.info('route');
+    app.set('view engine', 'ejs');
+    app.set('views', path.join(__dirname, 'views'));
+    app.use('/client', express.static(path.join(__dirname, 'client')));
+    console.log(version)
     try {
     const isMobile = /Mobile/i.test(req.headers['user-agent']);
     const title = 'Fusion Frame'
@@ -86,3 +68,4 @@ app.get('/:route?', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`open ${process.env.HOST}:${process.env.PORT}`);
 });
+
