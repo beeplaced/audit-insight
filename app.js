@@ -30,6 +30,11 @@ app.get('/auth', async (req, res) => {
     res.status(200).json(meta);
     })
 
+app.get('/login', (req, res) => {
+    res.redirect(process.env.AWS_LOGIN_SERVER);
+    //amazon-cognito-identity.js
+});
+
 app.get('/', async (req, res) => {
     try {
     const isMobile = /Mobile/i.test(req.headers['user-agent']);
@@ -47,11 +52,6 @@ app.get('/', async (req, res) => {
 
 app.get('/404', (req, res) => {
     res.render('404');
-});
-
-app.get('/login', (req, res) => {
-    res.redirect(process.env.AWS_LOGIN_SERVER);
-    //amazon-cognito-identity.js
 });
 
 app.get('/error', (req, res) => {
