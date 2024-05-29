@@ -37,7 +37,11 @@ export class API {
             // Log response for debugging
             console.log('Response:', response);
 
-            // Return response data
+            if (response.status === 401){
+                window.location.href = '/login';
+            }
+
+                // Return response data
             return response.data;
         } catch (error) {
             // Handle error
