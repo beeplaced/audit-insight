@@ -7,6 +7,8 @@ const d = document
 
 
 d.addEventListener('DOMContentLoaded', async () => {
+
+    console.log('open')
     //localStorage.clear()
     //await token.check()
     // function getAllCookies() {
