@@ -107,9 +107,7 @@ export const routes = {
             const customSlider = d.querySelector('custom-slider[selected="1"]');
             const segment = customSlider.contentinit
             let file = UploadImgForm.imageUploadInput.files[0]
-                        
-
-          
+                                  
             const _api = new API({ context, segment });
 
             if (!file && (!context || context.length ===0)) {
@@ -172,7 +170,7 @@ export const routes = {
             const roundedExecutionTime = executionTimeInSeconds.toFixed(2);
             d.querySelector('.bubble-box-form').appendChild(new TextBox(`execution time: ${roundedExecutionTime} seconds`))
             } catch (error) {
-                console.error(error)
+                console.log(error)
                 const errorMessage = encodeURIComponent(error.message);
               //  window.location.href = `/error?message=${errorMessage}`;
             }

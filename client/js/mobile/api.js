@@ -27,6 +27,7 @@ export class API {
             const response = await axios.post(imageURL, formData, {
                 headers: {
                     'Authorization': Authorization,
+                    'demo': true,
                     // 'Access-Control-Allow-Origin':'*',
                     'Content-Type': 'multipart/form-data'
                 },
@@ -55,8 +56,10 @@ export class API {
         try {
             const response = await axios.get(imageURL, {
                 params: {
-                    context: textData,
-                    segment: this.segment
+                    'Authorization': Authorization,
+                    'demo': true,
+                    'context': textData,
+                    'segment': this.segment
                 },
                 validateStatus: function () {
                     return true;

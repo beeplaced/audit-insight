@@ -7,9 +7,9 @@ exports.auth_token = async (accessToken) => {
         const clientId = process.env.COGNITO_CLIENT_ID;
         //const clientSecret = process.env.COGNITO_CLIENT_SECRET;
         const params = {
-        AccessToken: accessToken,
-        ClientId: clientId,
-    };
+            AccessToken: accessToken,
+            ClientId: clientId,
+        };
 
         const command = new GetUserCommand(params);
 

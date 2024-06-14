@@ -13,30 +13,29 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-app.get('/auth', async (req, res) => {
-    if (!req?.headers?.accesstoken){
-        res.redirect(process.env.AWS_LOGIN_SERVER);
-        return
-    }
-    const startTime = performance.now();
-    const access_token = req?.headers?.accesstoken
-    const meta = await api.auth_token(access_token)
-    const endTime = performance.now();
-    const executionTime = (endTime - startTime) / 1000; // Convert milliseconds to seconds
-    meta.executionTime = `aws cognito val in: ${executionTime.toFixed(3)} seconds`;
-    res.status(200).json(meta);
-    })
+// app.get('/auth', async (req, res) => {
+//     if (!req?.headers?.accesstoken){
+//         res.redirect(process.env.AWS_LOGIN_SERVER);
+//         return
+//     }
+//     const startTime = performance.now();
+//     const access_token = req?.headers?.accesstoken
+//     const meta = await api.auth_token(access_token)
+//     const endTime = performance.now();
+//     const executionTime = (endTime - startTime) / 1000; // Convert milliseconds to seconds
+//     meta.executionTime = `aws cognito val in: ${executionTime.toFixed(3)} seconds`;
+//     res.status(200).json(meta);
+//     })
 
-app.get('/login', (req, res) => {
-    res.redirect(process.env.AWS_LOGIN_SERVER);
-    //amazon-cognito-identity.js
-});
+// app.get('/login', (req, res) => {
+//     res.redirect(process.env.AWS_LOGIN_SERVER);
+//     //amazon-cognito-identity.js
+// });
 
 app.get('/', async (req, res) => {
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));
     app.use('/client', express.static(path.join(__dirname, 'client')));
-    console.log(version)
     try {
     const isMobile = /Mobile/i.test(req.headers['user-agent']);
     const title = 'Fusion Frame'
