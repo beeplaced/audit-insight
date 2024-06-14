@@ -27,7 +27,7 @@ export class API {
             const response = await axios.post(imageURL, formData, {
                 headers: {
                     'Authorization': Authorization,
-                    'demo': true,
+                    //'demo': true,
                     // 'Access-Control-Allow-Origin':'*',
                     'Content-Type': 'multipart/form-data'
                 },
